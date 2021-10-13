@@ -1,0 +1,56 @@
+﻿@model IEnumerable<JOB_FINDER.Models.USER>
+
+@{
+    ViewBag.Title = "SeeApplicantProfile";
+}
+
+@foreach (var item in Model)
+{
+    <div class="container" style="padding: 30px;">
+        <div class="row">
+            <div class="col-md-7">
+
+                <div style="margin-left: 0px; border: 0.5px solid #e2e0e0; border-radius: 10px; box-shadow: 1.5px 1.5px 1.5px 1.5px #ded8d8; padding: 50px;">
+                    <p style="font-size: 20px;">
+                        <text style="color: #1ba94c;">Name: </text>@Html.DisplayFor(modelItem => item.Name)
+                    </p>
+                    <p style="font-size: 20px;">
+                        <text style="color: #1ba94c;">Phone Number: </text>@Html.DisplayFor(modelItem => item.Phone)
+                    </p>
+                    <p style="font-size: 20px;">
+                        <text style="color: #1ba94c;">Email: </text>@Html.DisplayFor(modelItem => item.Email)
+                    </p>
+                    <p style="font-size: 20px;">
+                        <text style="color: #1ba94c;">University: </text>@Html.DisplayFor(modelItem => item.University)
+                    </p>
+                    <p style="font-size: 20px;">
+                        <text style="color: #1ba94c;">Special Skill: </text>@Html.DisplayFor(modelItem => item.Skill)
+                    </p>
+                    <p style="font-size: 20px;">
+                        <text style="color: #1ba94c;">Present Address: </text>@Html.DisplayFor(modelItem => item.Address)
+                    </p>
+                    @if (item.CV == null)
+                    {
+                        <p style="font-size: 20px;" class="text-danger">No CV found.</p>
+                    }
+                    else
+                    {
+                        <p style="font-size: 20px; color: #1ba94c;">CV: @Html.ActionLink("Download", "Download", "USERs", new { fileName = item.CV }, null)</p>
+                    }
+                </div>
+
+
+            </div>
+            <div class="col-md-5" style="margin-top: 0px;">
+                <ul class="list-group" style="font-size: 20px;">
+                    <a style="text-decoration: none; color: #1ba94c;">
+                    <li class="list-group-item" onclick="location.href='@Url.Action("Create", "RECOMMENDATIONs", new { id = item.UserID })'">Give a recommendation</li>
+                    </a>
+                    <a style="text-decoration: none; color: #1ba94c;">
+                    <li class="list-group-item" onclick="location.href='@Url.Action("Index", "RECOMMENDATIONs", new { id = item.UserID })'">See recommendations about this user</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+}

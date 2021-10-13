@@ -1,0 +1,43 @@
+﻿@model IEnumerable<JOB_FINDER.Models.APPLICATION>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<table class="table">
+    @if (Model.Count() == 0)
+    {
+        <div class="form-group text-center" style="margin-top: 75px; margin-bottom: 40px;">
+            <p style="font-size: 50px;" class=text-danger>You haven't applied to any job yet!</p>
+        </div>
+
+        <div class="form-group text-center" style="margin-bottom: 50px;">
+            <img style="height: 300px;" src="~/images/onlinelogomaker-101321-0450-4374.png">
+        </div>
+    }
+    else
+    {
+        <h2 class="text-center">Have a look at where you applied</h2>
+        foreach (var item in Model)
+        {
+            <div class="container">
+                <div class="" style="margin-top: 15px; margin-bottom: 15px; border: 0.5px solid #e2e0e0; border-radius: 10px; box-shadow: 1.5px 1.5px 1.5px 1.5px #ded8d8; padding: 15px;">
+                    <div class="" style="color: #1ba94c; padding: 5px; font-size: 25px;">
+                        @Html.DisplayFor(modelItem => item.POST.COMPANY.Name)
+                    </div>
+                    <div class="" style="padding: 5px;">
+                        <h3 class="">@Html.DisplayFor(modelItem => item.POST.Description)</h3>
+                        <p class=""><text class="text-danger">applied on: </text>@Html.DisplayFor(modelItem => item.ApplicationDate)</p>
+                        <p class="">@Html.DisplayNameFor(model => model.POST.Experience): @Html.DisplayFor(modelItem => item.POST.Experience) Years</p>
+                        <p class="">@Html.DisplayNameFor(model => model.POST.Salary): @Html.DisplayFor(modelItem => item.POST.Salary) Tk.</p>
+
+
+                        <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "APPLICATIONs", new { id = item.ApplicationID })'">Delete</button>
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+
+</table>

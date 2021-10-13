@@ -1,0 +1,41 @@
+﻿@model IEnumerable<JOB_FINDER.Models.ApplicationJoinedUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3 class="text-center" style="margin-top: 100px; margin-bottom: 85px;">See who have applied so far!!</h3>
+
+@if (Model.Count() == 0)
+{
+
+    <div class="form-group text-center" style="margin-top: 75px;">
+        <p style="font-size: 50px;">Nobody has applied so far!</p>
+    </div>
+
+    <div class="form-group text-center" style="margin-bottom: 55px;">
+        <img style="height: 300px;" src="~/images/onlinelogomaker-101321-0450-4374.png">
+    </div>
+}
+else
+{
+    foreach (var item in Model)
+    {
+
+        <div style="border: 0.5px solid #e2e0e0; border-radius: 10px; box-shadow: 1.5px 1.5px 1.5px 1.5px #ded8d8; margin: 25px;">
+            <div style="padding: 20px; margin-top: 10px; margin-bottom: 10px;">
+                <span style="font-size: 30px;">
+                    @Html.DisplayFor(modelItem => item.userDetails.Name)
+                </span>
+                <span style="font-size: 20px; margin-left: 25px;">
+                    <text class="text-danger">@Html.DisplayFor(modelItem => item.applicationDetails.ApplicationDate)</text>
+                </span>
+                <span style="float: right; margin-top: 15px; font-size: 15px;">
+                    @Html.ActionLink("View Profile", "SeeApplicantProfile", "USERs", new { id = item.userDetails.UserID }, null)
+                </span>
+            </div>
+        </div>
+
+    }
+}
+

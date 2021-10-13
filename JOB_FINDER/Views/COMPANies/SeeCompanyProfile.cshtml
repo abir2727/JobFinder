@@ -1,0 +1,51 @@
+﻿@model IEnumerable<JOB_FINDER.Models.COMPANY>
+
+@{
+    ViewBag.Title = "SeeCompanyProfile";
+}
+
+<div style="padding: 50px;">
+
+    @foreach (var item in Model)
+    {
+        <div class="container" style="padding: 30px;">
+            <div class="row">
+                <div class="col-md-7">
+
+                    <div style="margin-left: 0px; border: 0.5px solid #e2e0e0; border-radius: 10px; box-shadow: 1.5px 1.5px 1.5px 1.5px #ded8d8; padding: 50px;">
+                        <p style="font-size: 20px;">
+                            <text style="color: #1ba94c;">Name: </text>@Html.DisplayFor(modelItem => item.Name)
+                        </p>
+                        <p style="font-size: 20px;">
+                            <text style="color: #1ba94c;">About: </text>@Html.DisplayFor(modelItem => item.Description)
+                        </p>
+                        <p style="font-size: 20px;">
+                            <text style="color: #1ba94c;">Phone Number: </text>@Html.DisplayFor(modelItem => item.Phone)
+                        </p>
+                        <p style="font-size: 20px;">
+                            <text style="color: #1ba94c;">Email: </text>@Html.DisplayFor(modelItem => item.Email)
+                        </p>
+                        <p style="font-size: 20px;">
+                            <text style="color: #1ba94c;">Present Address: </text>@Html.DisplayFor(modelItem => item.Address)
+                        </p>
+                    </div>
+
+
+                </div>
+                <div class="col-md-5" style="margin-top: 0px;">
+                    <ul class="list-group" style="font-size: 20px;">
+                        <a style="text-decoration: none; color: #1ba94c;">
+                        <li class="list-group-item" onclick="location.href='@Url.Action("Create", "REVIEWs", new { id = item.CompanyID })'">Give a review</li>
+                        </a>
+                        <a style="text-decoration: none; color: #1ba94c;">
+                        <li class="list-group-item" onclick="location.href='@Url.Action("Index", "REVIEWs", new { id = item.CompanyID })'">See reviews about this company</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+
+    
+</div>
+

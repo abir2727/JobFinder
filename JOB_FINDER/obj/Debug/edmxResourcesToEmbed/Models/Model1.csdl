@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JobFinderDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="APPLICATION">
+    <Key>
+      <PropertyRef Name="ApplicationID" />
+    </Key>
+    <Property Name="ApplicationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="PostID" Type="Int32" Nullable="false" />
+    <Property Name="ApplicationDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="POST" Relationship="Self.FK__APPLICATI__PostI__239E4DCF" FromRole="APPLICATIONS" ToRole="POST" />
+    <NavigationProperty Name="USER" Relationship="Self.FK__APPLICATI__UserI__22AA2996" FromRole="APPLICATIONS" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="COMPANY">
+    <Key>
+      <PropertyRef Name="CompanyID" />
+    </Key>
+    <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="POSTs" Relationship="Self.FK__POST__CompanyID__1DE57479" FromRole="COMPANY" ToRole="POST" />
+    <NavigationProperty Name="RECOMMENDATIONs" Relationship="Self.FK__RECOMMEND__Compa__164452B1" FromRole="COMPANY" ToRole="RECOMMENDATION" />
+    <NavigationProperty Name="REVIEWs" Relationship="Self.FK__REVIEW__CompanyI__1B0907CE" FromRole="COMPANY" ToRole="REVIEW" />
+  </EntityType>
+  <EntityType Name="POST">
+    <Key>
+      <PropertyRef Name="PostID" />
+    </Key>
+    <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyID" Type="Int32" Nullable="false" />
+    <Property Name="Salary" Type="Int32" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Experience" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="APPLICATIONS" Relationship="Self.FK__APPLICATI__PostI__239E4DCF" FromRole="POST" ToRole="APPLICATIONS" />
+    <NavigationProperty Name="COMPANY" Relationship="Self.FK__POST__CompanyID__1DE57479" FromRole="POST" ToRole="COMPANY" />
+  </EntityType>
+  <EntityType Name="RECOMMENDATION">
+    <Key>
+      <PropertyRef Name="RecommendationID" />
+    </Key>
+    <Property Name="RecommendationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RecommendationDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="COMPANY" Relationship="Self.FK__RECOMMEND__Compa__164452B1" FromRole="RECOMMENDATION" ToRole="COMPANY" />
+    <NavigationProperty Name="USER" Relationship="Self.FK__RECOMMEND__UserI__173876EA" FromRole="RECOMMENDATION" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="REVIEW">
+    <Key>
+      <PropertyRef Name="ReviewID" />
+    </Key>
+    <Property Name="ReviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="CompanyID" Type="Int32" Nullable="false" />
+    <Property Name="ReviewDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="COMPANY" Relationship="Self.FK__REVIEW__CompanyI__1B0907CE" FromRole="REVIEW" ToRole="COMPANY" />
+    <NavigationProperty Name="USER" Relationship="Self.FK__REVIEW__UserID__1A14E395" FromRole="REVIEW" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="University" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Skill" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CV" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="APPLICATIONS" Relationship="Self.FK__APPLICATI__UserI__22AA2996" FromRole="USERS" ToRole="APPLICATIONS" />
+    <NavigationProperty Name="RECOMMENDATIONs" Relationship="Self.FK__RECOMMEND__UserI__173876EA" FromRole="USERS" ToRole="RECOMMENDATION" />
+    <NavigationProperty Name="REVIEWs" Relationship="Self.FK__REVIEW__UserID__1A14E395" FromRole="USERS" ToRole="REVIEW" />
+  </EntityType>
+  <Association Name="FK__APPLICATI__PostI__239E4DCF">
+    <End Role="POST" Type="Self.POST" Multiplicity="1" />
+    <End Role="APPLICATIONS" Type="Self.APPLICATION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="POST">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="APPLICATIONS">
+        <PropertyRef Name="PostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__APPLICATI__UserI__22AA2996">
+    <End Role="USERS" Type="Self.USER" Multiplicity="1" />
+    <End Role="APPLICATIONS" Type="Self.APPLICATION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="APPLICATIONS">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__POST__CompanyID__1DE57479">
+    <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="1" />
+    <End Role="POST" Type="Self.POST" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COMPANY">
+        <PropertyRef Name="CompanyID" />
+      </Principal>
+      <Dependent Role="POST">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RECOMMEND__Compa__164452B1">
+    <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="1" />
+    <End Role="RECOMMENDATION" Type="Self.RECOMMENDATION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COMPANY">
+        <PropertyRef Name="CompanyID" />
+      </Principal>
+      <Dependent Role="RECOMMENDATION">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__REVIEW__CompanyI__1B0907CE">
+    <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="1" />
+    <End Role="REVIEW" Type="Self.REVIEW" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COMPANY">
+        <PropertyRef Name="CompanyID" />
+      </Principal>
+      <Dependent Role="REVIEW">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RECOMMEND__UserI__173876EA">
+    <End Role="USERS" Type="Self.USER" Multiplicity="1" />
+    <End Role="RECOMMENDATION" Type="Self.RECOMMENDATION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="RECOMMENDATION">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__REVIEW__UserID__1A14E395">
+    <End Role="USERS" Type="Self.USER" Multiplicity="1" />
+    <End Role="REVIEW" Type="Self.REVIEW" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="REVIEW">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="JobFinderDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="APPLICATIONS" EntityType="Self.APPLICATION" />
+    <EntitySet Name="COMPANies" EntityType="Self.COMPANY" />
+    <EntitySet Name="POSTs" EntityType="Self.POST" />
+    <EntitySet Name="RECOMMENDATIONs" EntityType="Self.RECOMMENDATION" />
+    <EntitySet Name="REVIEWs" EntityType="Self.REVIEW" />
+    <EntitySet Name="USERS" EntityType="Self.USER" />
+    <AssociationSet Name="FK__APPLICATI__PostI__239E4DCF" Association="Self.FK__APPLICATI__PostI__239E4DCF">
+      <End Role="POST" EntitySet="POSTs" />
+      <End Role="APPLICATIONS" EntitySet="APPLICATIONS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__APPLICATI__UserI__22AA2996" Association="Self.FK__APPLICATI__UserI__22AA2996">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="APPLICATIONS" EntitySet="APPLICATIONS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__POST__CompanyID__1DE57479" Association="Self.FK__POST__CompanyID__1DE57479">
+      <End Role="COMPANY" EntitySet="COMPANies" />
+      <End Role="POST" EntitySet="POSTs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RECOMMEND__Compa__164452B1" Association="Self.FK__RECOMMEND__Compa__164452B1">
+      <End Role="COMPANY" EntitySet="COMPANies" />
+      <End Role="RECOMMENDATION" EntitySet="RECOMMENDATIONs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__REVIEW__CompanyI__1B0907CE" Association="Self.FK__REVIEW__CompanyI__1B0907CE">
+      <End Role="COMPANY" EntitySet="COMPANies" />
+      <End Role="REVIEW" EntitySet="REVIEWs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RECOMMEND__UserI__173876EA" Association="Self.FK__RECOMMEND__UserI__173876EA">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="RECOMMENDATION" EntitySet="RECOMMENDATIONs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__REVIEW__UserID__1A14E395" Association="Self.FK__REVIEW__UserID__1A14E395">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="REVIEW" EntitySet="REVIEWs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
